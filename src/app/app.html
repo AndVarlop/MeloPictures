@@ -6,52 +6,166 @@
 
   <nav class="sticky top-0 z-20">
     <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-      <a [routerLink]="auth.user() ? '/gallery' : '/'" class="group flex items-center gap-2">
+      <a
+        [routerLink]="auth.user() ? '/gallery' : '/'"
+        (click)="closeMenu()"
+        class="group flex items-center gap-2"
+      >
         <span
-          class="grid h-11 w-11 place-items-center overflow-hidden rounded-2xl bg-white ring-2 ring-green-500 shadow-lg shadow-green-500/30 transition-transform group-hover:rotate-6 group-hover:scale-110">
-          <img src="/marimonda.png" alt="Marimonda MeloPictures" class="h-10 w-10 object-contain melo-bounce" />
+          class="grid h-11 w-11 place-items-center overflow-hidden rounded-2xl bg-white ring-2 ring-green-500 shadow-lg shadow-green-500/30 transition-transform group-hover:rotate-6 group-hover:scale-110"
+        >
+          <img
+            src="marimonda.png"
+            alt="Marimonda MeloPictures"
+            class="h-10 w-10 object-contain melo-bounce"
+          />
         </span>
         <div class="flex flex-col leading-tight">
           <span class="font-display text-xl font-extrabold melo-gradient-text">
             MeloPictures
           </span>
-          <span class="text-[10px] font-semibold uppercase tracking-wider text-green-800/70">
+          <span class="hidden text-[10px] font-semibold uppercase tracking-wider text-green-800/70 sm:block">
             Barranquilla · Carnaval
           </span>
         </div>
       </a>
 
-      <div
-        class="flex items-center gap-1 rounded-full border border-green-200/70 bg-white/70 p-1 backdrop-blur-md shadow-sm">
+      <!-- Desktop nav -->
+      <div class="hidden items-center gap-1 rounded-full border border-green-200/70 bg-white/70 p-1 backdrop-blur-md shadow-sm md:flex">
         @if (auth.user()) {
-        <a routerLink="/gallery" routerLinkActive="bg-white text-green-700 shadow"
-          class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:text-green-700">
-          Explorar
-        </a>
-        <a routerLink="/upload" routerLinkActive="bg-white text-green-700 shadow"
-          class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:text-green-700">
-          + Subir
-        </a>
-        <a routerLink="/dashboard" routerLinkActive="bg-white text-green-700 shadow"
-          class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:text-green-700">
-          Perfil
-        </a>
-        <button type="button" (click)="logout()"
-          class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-500 transition hover:text-red-600"
-          title="Cerrar sesión">
-          ↩
-        </button>
+          <a
+            routerLink="/gallery"
+            routerLinkActive="bg-white text-green-700 shadow"
+            class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:text-green-700"
+          >
+            Explorar
+          </a>
+          <a
+            routerLink="/upload"
+            routerLinkActive="bg-white text-green-700 shadow"
+            class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:text-green-700"
+          >
+            + Subir
+          </a>
+          <a
+            routerLink="/dashboard"
+            routerLinkActive="bg-white text-green-700 shadow"
+            class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:text-green-700"
+          >
+            Perfil
+          </a>
+          <button
+            type="button"
+            (click)="logout()"
+            class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-500 transition hover:text-red-600"
+            title="Cerrar sesión"
+          >
+            ↩
+          </button>
         } @else {
-        <a routerLink="/" routerLinkActive="bg-white text-green-700 shadow" [routerLinkActiveOptions]="{ exact: true }"
-          class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:text-green-700">
-          Entrar
-        </a>
-        <a routerLink="/register" class="melo-btn px-4 py-1.5 text-sm">
-          Registrarme
-        </a>
+          <a
+            routerLink="/"
+            routerLinkActive="bg-white text-green-700 shadow"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="rounded-full px-3 py-1.5 text-sm font-semibold text-gray-700 transition hover:text-green-700"
+          >
+            Entrar
+          </a>
+          <a routerLink="/register" class="melo-btn px-4 py-1.5 text-sm">
+            Registrarme
+          </a>
         }
       </div>
+
+      <!-- Mobile burger -->
+      <button
+        type="button"
+        (click)="toggleMenu()"
+        class="grid h-11 w-11 place-items-center rounded-2xl border border-green-200/70 bg-white/80 text-green-800 shadow-sm backdrop-blur-md transition hover:bg-white md:hidden"
+        [attr.aria-expanded]="menuOpen()"
+        aria-label="Abrir menú"
+      >
+        <span class="relative block h-4 w-5">
+          <span
+            class="absolute left-0 h-0.5 w-full rounded-full bg-current transition-all duration-300"
+            [class.top-0]="!menuOpen()"
+            [class.top-1\.5]="menuOpen()"
+            [class.rotate-45]="menuOpen()"
+          ></span>
+          <span
+            class="absolute left-0 top-1.5 h-0.5 w-full rounded-full bg-current transition-opacity duration-200"
+            [class.opacity-0]="menuOpen()"
+          ></span>
+          <span
+            class="absolute left-0 h-0.5 w-full rounded-full bg-current transition-all duration-300"
+            [class.top-3]="!menuOpen()"
+            [class.top-1\.5]="menuOpen()"
+            [class.-rotate-45]="menuOpen()"
+          ></span>
+        </span>
+      </button>
     </div>
+
+    <!-- Mobile dropdown -->
+    @if (menuOpen()) {
+      <div class="md:hidden">
+        <div
+          class="mx-4 melo-pop melo-card flex flex-col gap-1 p-3"
+        >
+          @if (auth.user()) {
+            <a
+              routerLink="/gallery"
+              routerLinkActive="bg-green-50 text-green-700"
+              (click)="closeMenu()"
+              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-green-50 hover:text-green-700"
+            >
+              <span class="text-lg">🎭</span> Explorar
+            </a>
+            <a
+              routerLink="/upload"
+              routerLinkActive="bg-green-50 text-green-700"
+              (click)="closeMenu()"
+              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-green-50 hover:text-green-700"
+            >
+              <span class="text-lg">📤</span> Subir
+            </a>
+            <a
+              routerLink="/dashboard"
+              routerLinkActive="bg-green-50 text-green-700"
+              (click)="closeMenu()"
+              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-green-50 hover:text-green-700"
+            >
+              <span class="text-lg">👤</span> Perfil
+            </a>
+            <button
+              type="button"
+              (click)="logout()"
+              class="mt-1 flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-red-600 transition hover:bg-red-50"
+            >
+              <span class="text-lg">↩</span> Cerrar sesión
+            </button>
+          } @else {
+            <a
+              routerLink="/"
+              routerLinkActive="bg-green-50 text-green-700"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="closeMenu()"
+              class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-green-50 hover:text-green-700"
+            >
+              <span class="text-lg">🔑</span> Entrar
+            </a>
+            <a
+              routerLink="/register"
+              (click)="closeMenu()"
+              class="melo-btn mt-1 justify-center"
+            >
+              Registrarme
+            </a>
+          }
+        </div>
+      </div>
+    }
+
     <div class="melo-ribbon mx-auto max-w-5xl"></div>
   </nav>
 

@@ -9,21 +9,21 @@ import { PostService } from '../../core/service/post.service';
     template: `
     <section class="mx-auto max-w-2xl px-4 py-10">
       <div class="melo-fade-up mb-8 text-center">
-        <span class="melo-chip mb-3">📤 Nuevo momento</span>
+        <span class="melo-chip melo-chip-green mb-3">📤 Nueva postal</span>
         <h1 class="font-display text-4xl font-extrabold">
           Sube una <span class="melo-gradient-text">foto</span>
         </h1>
-        <p class="mt-2 text-gray-600">Comparte un momento dulce con la comunidad.</p>
+        <p class="mt-2 text-gray-600">Comparte un momento de la Arenosa con la comunidad.</p>
       </div>
 
       <form (ngSubmit)="submit()" class="melo-card melo-fade-up flex flex-col gap-5 p-6">
         <label
-          [class.border-fuchsia-400]="dragging()"
-          [class.bg-fuchsia-50]="dragging()"
+          [class.border-green-500]="dragging()"
+          [class.bg-green-50]="dragging()"
           (dragover)="onDragOver($event)"
           (dragleave)="onDragLeave()"
           (drop)="onDrop($event)"
-          class="group relative flex aspect-video cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-gray-300 bg-gradient-to-br from-white to-fuchsia-50 transition hover:border-fuchsia-400"
+          class="group relative flex aspect-video cursor-pointer items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-green-300 bg-gradient-to-br from-white to-green-50 transition hover:border-green-500"
         >
           @if (preview()) {
             <img
@@ -42,7 +42,7 @@ import { PostService } from '../../core/service/post.service';
           } @else {
             <div class="flex flex-col items-center gap-2 text-center">
               <div
-                class="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-pink-400 to-indigo-500 text-2xl text-white shadow-lg shadow-fuchsia-500/30 transition group-hover:scale-110"
+                class="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-green-500 via-yellow-400 to-red-500 text-2xl text-white shadow-lg shadow-green-500/30 transition group-hover:scale-110"
               >
                 ⬆
               </div>
@@ -56,7 +56,7 @@ import { PostService } from '../../core/service/post.service';
         </label>
 
         @if (file()) {
-          <div class="melo-pop flex items-center justify-between rounded-xl bg-fuchsia-50 px-3 py-2 text-sm">
+          <div class="melo-pop flex items-center justify-between rounded-xl bg-green-50 px-3 py-2 text-sm">
             <span class="truncate text-gray-700">
               <strong class="font-semibold">{{ file()!.name }}</strong>
               — {{ (file()!.size / 1024 / 1024).toFixed(2) }} MB

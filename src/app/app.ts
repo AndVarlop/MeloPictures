@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from './core/service/auth.service';
 
@@ -12,8 +12,18 @@ export class App {
   readonly auth = inject(AuthService);
   private readonly router = inject(Router);
   readonly year = new Date().getFullYear();
+  readonly menuOpen = signal(false);
+
+  toggleMenu() {
+    this.menuOpen.update((v) => !v);
+  }
+
+  closeMenu() {
+    this.menuOpen.set(false);
+  }
 
   async logout() {
+    this.closeMenu();
     await this.auth.logout();
     await this.router.navigateByUrl('/');
   }

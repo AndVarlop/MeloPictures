@@ -134,11 +134,11 @@ import { PostCardComponent } from '../../shared/components/post-card/post-card.c
             </div>
           } @else if (myPosts().length === 0) {
             <div class="melo-card p-8 text-center">
-              <div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-fuchsia-100 text-2xl">
-                🌸
+              <div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-green-100 text-2xl">
+                🎭
               </div>
               <p class="mt-3 font-semibold text-gray-900">Aún no has subido fotos</p>
-              <p class="mt-1 text-sm text-gray-500">Comparte tu primer momento.</p>
+              <p class="mt-1 text-sm text-gray-500">Comparte tu primer carnaval.</p>
             </div>
           } @else {
             <div class="flex flex-col gap-5">
