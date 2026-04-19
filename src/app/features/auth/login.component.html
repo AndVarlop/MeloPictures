@@ -1,0 +1,71 @@
+<section class="mx-auto grid max-w-5xl gap-10 px-4 py-10 md:grid-cols-2 md:items-center md:py-16">
+    <div class="melo-fade-up order-2 md:order-1">
+        <span class="melo-chip mb-4">🎭 ¡Quien lo vives, es quien lo goza!</span>
+        <h1 class="font-display text-4xl font-extrabold leading-tight sm:text-5xl">
+            Vuelve a <span class="melo-gradient-text">MeloPictures</span>
+        </h1>
+        <p class="mt-3 max-w-md text-gray-600">
+            La <span class="font-semibold text-green-700">Arenosa</span> en imágenes: Carnaval, Junior y el sabor del
+            Caribe. Entra y sigue la fiesta.
+        </p>
+
+        <div class="mt-6 grid grid-cols-3 gap-3 max-w-sm">
+            @for (tile of tiles; track $index) {
+            <div class="melo-pop grid aspect-square place-items-center rounded-2xl text-3xl shadow-sm"
+                [class]="$index % 4 === 3 ? 'bg-gradient-to-br from-red-200 to-red-400' : $index % 4 === 1 ? 'bg-gradient-to-br from-yellow-200 to-yellow-400' : 'bg-gradient-to-br from-green-200 to-green-500'"
+                [style.animation-delay]="$index * 80 + 'ms'">
+                {{ ['🎭','⚽','🎺','🪅','🥁','🌴','🎉','🍹','💃'][$index] }}
+            </div>
+            }
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-2">
+            <span class="melo-chip melo-chip-green">🏟 Junior campeón</span>
+            <span class="melo-chip melo-chip-yellow">🎺 Carnaval</span>
+            <span class="melo-chip">🌊 Río Magdalena</span>
+        </div>
+    </div>
+
+    <div class="melo-card melo-fade-up order-1 p-8 md:order-2">
+        <h2 class="font-display text-2xl font-bold text-gray-900">Iniciar sesión</h2>
+        <p class="mt-1 text-sm text-gray-500">Usa tu correo y contraseña.</p>
+
+        <form (ngSubmit)="login()" class="mt-6 flex flex-col gap-4">
+            <label class="flex flex-col gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wide text-gray-600">Email</span>
+                <input type="email" name="email" required [(ngModel)]="email" class="melo-input"
+                    placeholder="tu@correo.com" />
+            </label>
+
+            <label class="flex flex-col gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wide text-gray-600">Contraseña</span>
+                <input type="password" name="password" required minlength="6" [(ngModel)]="password" class="melo-input"
+                    placeholder="••••••••" />
+            </label>
+
+            @if (errorMessage()) {
+            <p class="melo-pop rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-700">
+                {{ errorMessage() }}
+            </p>
+            }
+
+            <button type="submit" [disabled]="loading()" class="melo-btn mt-2">
+                @if (loading()) {
+                <span
+                    class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+                Entrando…
+                } @else {
+                Entrar
+                <span>→</span>
+                }
+            </button>
+        </form>
+
+        <p class="mt-6 text-center text-sm text-gray-600">
+            ¿Sin cuenta?
+            <a routerLink="/register" class="font-semibold melo-gradient-text hover:underline">
+                Crea una
+            </a>
+        </p>
+    </div>
+</section>

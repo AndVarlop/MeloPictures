@@ -1,3 +1,313 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+:root {
+  /* Barranquilla palette — verde (primary), rojo, amarillo, blanco */
+  --melo-1: #16a34a; /* verde principal */
+  --melo-2: #22c55e; /* verde claro */
+  --melo-3: #dc2626; /* rojo Junior */
+  --melo-4: #facc15; /* amarillo carnaval */
+  --melo-bg: #f0fdf4;
+}
+
+html,
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1f2937;
+  background: var(--melo-bg);
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Animated carnival background */
+.melo-bg {
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100dvh;
+  background: radial-gradient(circle at 15% 10%, #bbf7d0 0%, transparent 50%),
+    radial-gradient(circle at 85% 5%, #fef08a 0%, transparent 40%),
+    radial-gradient(circle at 50% 100%, #d1fae5 0%, transparent 45%),
+    #f0fdf4;
+}
+.melo-bg::before,
+.melo-bg::after {
+  content: '';
+  position: fixed;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+.melo-bg::before {
+  top: -10%;
+  left: -10%;
+  background: linear-gradient(135deg, var(--melo-1), var(--melo-2));
+  animation: melo-float 16s ease-in-out infinite;
+}
+.melo-bg::after {
+  bottom: -15%;
+  right: -10%;
+  background: linear-gradient(135deg, var(--melo-2), var(--melo-4));
+  animation: melo-float 20s ease-in-out infinite reverse;
+}
+
+@keyframes melo-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(40px, -60px) scale(1.1);
+  }
+}
+
+/* Carnival confetti sprinkle — decorative overlay */
+.melo-confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.melo-confetti span {
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.75;
+  animation: confettiFall linear infinite;
+}
+.melo-confetti span:nth-child(1) { left: 8%;  background: var(--melo-1); animation-duration: 9s;  animation-delay: 0s;   transform: rotate(20deg); }
+.melo-confetti span:nth-child(2) { left: 22%; background: var(--melo-3); animation-duration: 12s; animation-delay: 1.5s; transform: rotate(-15deg); }
+.melo-confetti span:nth-child(3) { left: 35%; background: var(--melo-4); animation-duration: 8s;  animation-delay: 2.2s; }
+.melo-confetti span:nth-child(4) { left: 48%; background: var(--melo-2); animation-duration: 11s; animation-delay: 0.6s; transform: rotate(35deg); }
+.melo-confetti span:nth-child(5) { left: 62%; background: var(--melo-3); animation-duration: 10s; animation-delay: 3s; }
+.melo-confetti span:nth-child(6) { left: 75%; background: var(--melo-4); animation-duration: 13s; animation-delay: 1s;   transform: rotate(-25deg); }
+.melo-confetti span:nth-child(7) { left: 88%; background: var(--melo-1); animation-duration: 9.5s; animation-delay: 2.5s; }
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-10%) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(110vh) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+/* Gradient text — tricolor Colombia/Barranquilla */
+.melo-gradient-text {
+  background: linear-gradient(90deg, var(--melo-1) 0%, var(--melo-4) 55%, var(--melo-3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Gradient button — verde dominante con chispa amarilla/roja */
+.melo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, var(--melo-1) 0%, var(--melo-2) 50%, var(--melo-4) 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  box-shadow: 0 10px 25px -10px rgba(22, 163, 74, 0.55);
+  transition: transform 180ms ease, background-position 600ms ease, box-shadow 180ms ease;
+}
+.melo-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background-position: 100% 50%;
+  box-shadow: 0 15px 30px -10px rgba(220, 38, 38, 0.55);
+}
+.melo-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+.melo-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.melo-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  color: #14532d;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(22, 163, 74, 0.25);
+  backdrop-filter: blur(8px);
+  transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+.melo-btn-ghost:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(22, 163, 74, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Glass card con borde verde sutil */
+.melo-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(22, 163, 74, 0.18);
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 40px -20px rgba(22, 101, 52, 0.2);
+}
+
+/* Input */
+.melo-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(22, 163, 74, 0.22);
+  background: rgba(255, 255, 255, 0.85);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+  font-size: 0.95rem;
+}
+.melo-input:focus {
+  outline: none;
+  border-color: var(--melo-1);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.18);
+}
+
+/* Chip / pill con toque rojo carnaval */
+.melo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #991b1b;
+}
+.melo-chip-green {
+  background: rgba(220, 252, 231, 0.9);
+  border-color: rgba(22, 163, 74, 0.35);
+  color: #14532d;
+}
+.melo-chip-yellow {
+  background: rgba(254, 249, 195, 0.9);
+  border-color: rgba(234, 179, 8, 0.45);
+  color: #713f12;
+}
+
+/* Cinta tricolor decorativa */
+.melo-ribbon {
+  background: linear-gradient(90deg, var(--melo-1) 0 33%, var(--melo-4) 33% 66%, var(--melo-3) 66% 100%);
+  height: 4px;
+  border-radius: 9999px;
+}
+
+/* Entrance animations */
+.melo-fade-up {
+  animation: meloFadeUp 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes meloFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.melo-pop {
+  animation: meloPop 350ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes meloPop {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Carnival bounce */
+.melo-bounce {
+  animation: meloBounce 2.4s ease-in-out infinite;
+}
+@keyframes meloBounce {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-6px) rotate(3deg); }
+}
+
+/* Heart like pulse */
+.heart-burst {
+  animation: heartBurst 500ms cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+@keyframes heartBurst {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.45);
+  }
+  60% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Shimmer skeleton */
+.melo-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(220, 252, 231, 0.85) 50%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  background-size: 200% 100%;
+  animation: meloShimmer 1.4s ease-in-out infinite;
+  border-radius: 1rem;
+}
+@keyframes meloShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Scrollbar tricolor */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--melo-1), var(--melo-4), var(--melo-3));
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
